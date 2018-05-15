@@ -27,14 +27,14 @@ public class SpriteAnimationActor extends Actor {
         animation = new Animation(1/24f, rm.getSpriteAnimation(animationName).getRegions());
         animation.setPlayMode(Animation.PlayMode.LOOP);
 
-        TextureRegion region = animation.getKeyFrame(stateTime);
+        TextureRegion region = (TextureRegion)animation.getKeyFrame(stateTime);
         setWidth(region.getRegionWidth());
         setHeight(region.getRegionHeight());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        TextureRegion region = animation.getKeyFrame(stateTime);
+        TextureRegion region = (TextureRegion)animation.getKeyFrame(stateTime);
         setWidth(region.getRegionWidth());
         setHeight(region.getRegionHeight());
         batch.setColor(getColor());

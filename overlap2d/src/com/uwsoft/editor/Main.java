@@ -38,8 +38,6 @@ import javax.swing.UIManager;
 import com.uwsoft.editor.view.frame.FileDropListener;
 import org.apache.commons.lang3.SystemUtils;
 
-import com.badlogic.gdx.backends.jglfw.JglfwApplication;
-import com.badlogic.gdx.backends.jglfw.JglfwApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl.LwjglFrame;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
@@ -66,35 +64,19 @@ public class Main {
         double width = maximumWindowBounds.getWidth();
         double height = maximumWindowBounds.getHeight();
 
-        if (SystemUtils.IS_OS_MAC_OSX || SystemUtils.IS_OS_MAC) {
-            System.setProperty("apple.laf.useScreenMenuBar", "true");
-            System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Overlap2D");
-            JglfwApplicationConfiguration config = new JglfwApplicationConfiguration();
-            config.width = (int) (width);
-            config.height = (int) (height - height * .04);
-            config.backgroundFPS = 0;
-            config.title = "Overlap2D - v" + AppConfig.getInstance().version;
-            new JglfwApplication(overlap2D, config);
-        } else {
-            LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-            config.title = "Overlap2D - v" + AppConfig.getInstance().version;
-            config.fullscreen = true;
-            config.resizable = false;
-            config.width = (int) (width);
-            config.height = (int) (height - height * .04);
-            config.backgroundFPS = 0;
-            mainFrame = new LwjglFrame(overlap2D, config);
-            mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-            toggleVisible();
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = "Overlap2D - v" + AppConfig.getInstance().version;
+        config.fullscreen = true;
+        config.resizable = false;
+        config.width = (int) (width);
+        config.height = (int) (height - height * .04);
+        config.backgroundFPS = 0;
+        mainFrame = new LwjglFrame(overlap2D, config);
+        mainFrame.setExtendedState(mainFrame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        toggleVisible();
 
-            // subscribe to file dropping notifications, currently windows only
-            DropTarget dropTarget = new DropTarget(mainFrame, new FileDropListener());
-        }
-
-        if(!SystemUtils.IS_OS_UNIX) {
-            // no aesthetics for linux users I guess..
-            setIcon();
-        }
+        // subscribe to file dropping notifications, currently windows only
+        DropTarget dropTarget = new DropTarget(mainFrame, new FileDropListener());
 
     }
 
